@@ -1,0 +1,8 @@
+<mat-form-field class="search">
+  <mat-label>Select a body part</mat-label>
+  <mat-select [(ngModel)]="selectedBodyPart" (selectionChange)="onBodyPartSelected()">
+    <mat-option *ngFor="let bodyPart of bodyParts$ | async" [value]="bodyPart">
+      {{ bodyPart }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

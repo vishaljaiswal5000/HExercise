@@ -1,0 +1,16 @@
+<mat-grid-list cols="3" gutterSize="50px" rowHeight="2:1">
+  <app-card
+    *ngFor="
+      let item of data
+        | slice : (page - 1) * pageSize : (page - 1) * pageSize + pageSize
+    "
+    [item]="item"
+  ></app-card>
+</mat-grid-list>
+<mat-paginator
+  [pageSizeOptions]="[5, 10, 20]"
+  [pageSize]="pageSize"
+  [length]="data.length"
+  (page)="page = $event.pageIndex + 1; pageSize = $event.pageSize"
+>
+</mat-paginator>
