@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class DataService {
   private apiUrl = 'https://exercisedb.p.rapidapi.com/exercises';
-  private keyback = '8b9f4c35b5msh0acc82a7a84bd72p1caab1jsnc29334850d26';
-  private key = '64540054d3mshd0d575529a3ee04p1dcd48jsn4a88be98b18e';
+  private key = '8b9f4c35b5msh0acc82a7a84bd72p1caab1jsnc29334850d26';
+  // private key = '64540054d3mshd0d575529a3ee04p1dcd48jsn4a88be98b18e';
   private host = 'exercisedb.p.rapidapi.com';
 
   options = {

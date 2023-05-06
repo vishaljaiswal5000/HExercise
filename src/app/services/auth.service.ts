@@ -1,57 +1,4 @@
-// import { Injectable } from '@angular/core';
-// import { HttpClient, HttpHeaders } from '@angular/common/http';
-// import { Observable, from } from 'rxjs';
-// import { AngularFireAuth } from '@angular/fire/auth';
-// import { getAuth } from 'firebase/auth';
-// import { initializeApp } from 'firebase/app';
-// import {
-//   Auth,
-//   createUserWithEmailAndPassword,
-//   UserCredential,
-// } from 'firebase/auth';
-// import { environment } from 'src/environments/environment';
-
-// @Injectable({
-//   providedIn: 'root',
-// })
-// export class AuthService {
-//   isLoggedIn: boolean = false;
-//   constructor(public afAuth: AngularFireAuth) {}
-
-//   // Sign up with Email and password
-//   signUp(
-//     email: string,
-//     password: string,
-//     auth: Auth
-//   ): Observable<UserCredential> {
-//     return from(createUserWithEmailAndPassword(auth, email, password));
-//   }
-
-//   // Sign in with Google
-//   GoogleAuth() {
-//     const auth = getAuth(initializeApp(environment.firebaseConfig));
-//     return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-//       this.router.navigate(['dashboard']);
-//     });
-//   }
-
-//   // Auth logic to run auth providers
-//   AuthLogin(provider: any) {
-//     return this.afAuth
-//       .signInWithPopup(provider)
-//       .then((result) => {
-//         this.router.navigate(['dashboard']);
-
-//         this.SetUserData(result.user);
-//       })
-//       .catch((error) => {
-//         window.alert(error);
-//       });
-//   }
-// }
-
 import { Injectable, NgZone } from '@angular/core';
-
 import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
@@ -60,6 +7,7 @@ import {
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { User } from '../model/user';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -71,10 +19,15 @@ export class AuthService {
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public ngZone: NgZone,
+    private snackBar: MatSnackBar
   ) {
     /* Saving user data in localstorage when
     logged in and setting up null when logged out */
+    this.SaveToLocalStorage();
+  }
+
+  SaveToLocalStorage() {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
@@ -100,23 +53,37 @@ export class AuthService {
         });
       })
       .catch((error) => {
-        window.alert(error.message);
+        // window.alert(error.message);
+        this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
       });
   }
 
   // Sign up with email/password
-  SignUp(email: string, password: string) {
+  SignUp(email: string, password: string, displayName: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        /* Call the SendVerificaitonMail() function when new user sign
-        up and returns promise */
-        // this.SendVerificationMail();
+      .then((result: any) => {
+        // this.updatDisplayName(result.user, displayName);
         this.SetUserData(result.user);
       })
       .catch((error) => {
-        window.alert(error.message);
+        this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
       });
+  }
+
+  updatDisplayName(user: any, displayName: string) {
+    user
+      .updateProfile({
+        displayName: displayName,
+      })
+      .then(
+        () => {
+          // Update successful.
+        },
+        (error: any) => {
+          this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
+        }
+      );
   }
 
   // Returns true when user is looged in and email is verified
@@ -129,10 +96,14 @@ export class AuthService {
   GoogleAuth() {
     return this.AuthLogin(new auth.GoogleAuthProvider()).then(
       (res: any) => {
-        this.router.navigate(['dashboard']);
+        this.afAuth.authState.subscribe((user) => {
+          if (user) {
+            this.router.navigate(['dashboard']);
+          }
+        });
       },
-      (err) => {
-        console.log(err);
+      (error) => {
+        this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
       }
     );
   }
@@ -141,12 +112,11 @@ export class AuthService {
   AuthLogin(provider: any) {
     return this.afAuth
       .signInWithPopup(provider)
-      .then((result) => {
-        this.router.navigate(['dashboard']);
-        this.SetUserData(result.user);
+      .then((result: any) => {
+        this.SetUserData(result.user._delegate);
       })
       .catch((error) => {
-        window.alert(error);
+        this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
       });
   }
 
@@ -169,7 +139,7 @@ export class AuthService {
     });
   }
 
-  getUserData() {
+  get getUserData() {
     const user = this.userData;
     return user ? user : null;
   }

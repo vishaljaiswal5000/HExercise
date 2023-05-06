@@ -1,59 +1,72 @@
-<div class="displayTable">
-  <div class="displayTableCell">
-    <div class="authBlock">
-      <h3>Sign Up</h3>
+<div class="wrapper">
+  <mat-card class="mat-elevation-z6">
+    <mat-card-header class="center">
+      <mat-card-title>Sign Up</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="authBlock">
+        <div class="formGroup">
+          <input
+            type="email"
+            class="formControl"
+            placeholder="Email Address"
+            #userEmail
+            required
+          />
+        </div>
 
-      <div class="formGroup">
-        <input
-          type="email"
-          class="formControl"
-          placeholder="Email Address"
-          #userEmail
-          required
-        />
-      </div>
+        <div class="formGroup">
+          <input
+            type="password"
+            class="formControl"
+            placeholder="Password"
+            #userPwd
+            required
+          />
+        </div>
 
-      <div class="formGroup">
-        <input
-          type="password"
-          class="formControl"
-          placeholder="Password"
-          #userPwd
-          required
-        />
-      </div>
+        <div class="formGroup">
+          <input
+            type="text"
+            class="formControl"
+            placeholder="Display Name"
+            #displayName
+            required
+          />
+        </div>
 
-      <div class="formGroup">
-        <input
-          type="button"
-          class="btn btnPrimary"
-          value="Sign Up"
-          (click)="authService.SignUp(userEmail.value, userPwd.value)"
-        />
-      </div>
+        <div class="formGroup center">
+          <button
+            mat-raised-button
+            (click)="authService.SignUp(userEmail.value, userPwd.value,displayName.value)"
+          >
+            Sign Up
+          </button>
+        </div>
 
-      <div class="formGroup">
-        <span class="or"><span class="orInner">Or</span></span>
-      </div>
+        <div class="formGroup">
+          <span class="or"><span class="orInner">Or</span></span>
+        </div>
 
-      <!-- Continue with Google -->
-      <div class="formGroup">
-        <button
-          type="button"
-          class="btn googleBtn"
+        <!-- Continue with Google -->
+        <div class="formGroup center">
+          <button
+          mat-raised-button
+          color="primary"
           (click)="authService.GoogleAuth()"
         >
-          <i class="fab fa-google-plus-g"></i>
-          Continue with Google
+          <i class="fab fa-google-plus-g"></i> Continue with Google
         </button>
-      </div>
-    </div>
+        </div>
 
-    <div class="redirectToLogin">
-      <span
-        >Already have an account?
-        <span class="redirect" routerLink="/signin">Sign In</span></span
-      >
-    </div>
-  </div>
+      </div>
+      <div class="center cursor">
+        <span
+          >Already have an account?
+          <span class="redirect" routerLink="/signin">Sign In</span></span
+        >
+      </div>
+    </mat-card-content>
+    <mat-card-actions> </mat-card-actions>
+  </mat-card>
 </div>
