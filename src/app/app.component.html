@@ -1,7 +1,22 @@
-<mat-toolbar color="primary">
-  <span>Helium Exercise</span>
-</mat-toolbar>
+<router-outlet *ngIf="!this.authService.isLoggedIn"></router-outlet>
+<ng-container *ngIf="this.authService.isLoggedIn">
+  <mat-toolbar color="primary">
+    <span>Helium Exercise</span>
+    <span class="fill"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </mat-toolbar>
 
-<div class="container">
-  <app-home></app-home>
-</div>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>Profile</button>
+  <button mat-menu-item>Settings</button>
+  <button mat-menu-item (click)="authService.SignOut()">Logout</button>
+</mat-menu>
+
+  <div class="container">
+    <router-outlet></router-outlet>
+    <!-- <app-home></app-home> -->
+  </div>
+</ng-container>

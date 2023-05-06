@@ -4,7 +4,6 @@ import { SignupComponent } from './components/auth/signup/signup.component';
 import { SigninComponent } from './components/auth/signin/signin.component';
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './services/auth.guard';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthLoginGuard } from './services/authLogin.guard';
 
 const routes: Routes = [

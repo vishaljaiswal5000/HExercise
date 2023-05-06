@@ -1,9 +1,14 @@
 .container {
-  padding-top: 5rem;
+  overflow-y: scroll;
+  height: 90vh;
 }
 
 mat-toolbar {
   display:flex;
-  position: fixed;
   justify-content: space-between;
+}
+
+
+.content {
+  padding: 16px;
 }

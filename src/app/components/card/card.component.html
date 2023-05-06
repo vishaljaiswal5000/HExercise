@@ -1,13 +1,15 @@
-<mat-card class="card">
-  <mat-card-header>
+<mat-card class="card" appMaterialElevation>
+  <mat-card-header class="header">
     <mat-card-title class="card-title">
-      <span>{{ item.name }}</span>
-      <span class="fill"></span>
-      <mat-icon
-        (click)="addFavorite(item.id)"
-        [style.color]="isFavorite(item.id) ? 'red' : 'gray'"
-        >favorite</mat-icon
-      >
+      <div style="display: flex">
+        <span>{{ item.name }}</span>
+        <span class="fill"></span>
+        <mat-icon
+          (click)="toggleFavorite()"
+          [style.color]="item.isFavorite ? 'red' : 'gray'"
+          >favorite</mat-icon
+        >
+      </div>
     </mat-card-title>
     <mat-card-subtitle>
       Required Equipments: {{ item.equipment }}</mat-card-subtitle

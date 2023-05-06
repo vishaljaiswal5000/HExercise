@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, map } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
@@ -11,23 +11,32 @@ import { Favorite } from 'src/app/model/favorite';
 })
 export class CardComponent implements OnInit {
   @Input() item: any;
-  favorites$: Observable<Favorite[]>;
-  userId = this.authService.getUserData().uid;
+  @Output() fetchFavorite = new EventEmitter<void>();
+  userId = '';
   constructor(
     public firestore: AngularFirestore,
     public authService: AuthService
-  ) {
-    this.favorites$ = this.getFavorites();
+  ) {}
+
+  ngOnInit(): void {
+    this.userId = this.authService.getUserData.uid;
   }
 
-  ngOnInit(): void {}
-
+  toggleFavorite() {
+    if (this.item.isFavorite) {
+      this.removeFavorite(this.item.id);
+    } else {
+      this.addFavorite(this.item.id);
+    }
+  }
   addFavorite(id: string) {
     const favorite: Favorite = {
       exerciseId: id,
       playerId: this.authService.getUserData().uid,
     };
     this.firestore.collection('favorites').add(favorite);
+    this.item.isFavorite = true;
+    this.fetchFavorite.emit();
   }
 
   removeFavorite(id: string) {
@@ -41,6 +50,8 @@ export class CardComponent implements OnInit {
         if (querySnapshot) {
           querySnapshot.forEach((doc) => {
             doc.ref.delete();
+            this.item.isFavorite = false;
+            this.fetchFavorite.emit();
           });
         }
       })
@@ -49,17 +60,24 @@ export class CardComponent implements OnInit {
       });
   }
 
-  isFavorite(id: string) {
-    return this.favorites$.pipe(
-      map((favorites) => favorites.some((f) => f.exerciseId === id))
-    );
-  }
+  // isFavorite(id: string) {
+  //   return this.favorites$.pipe(
+  //     map((favorites) =>
+  //       favorites.some((f) => {
+  //         console.log(f.exerciseId + '------>' + id);
+  //         return f.exerciseId === id;
+  //       })
+  //     )
+  //   );
+  // }
 
-  getFavorites() {
-    return this.firestore
-      .collection<Favorite>('favorites', (ref) =>
-        ref.where('playerId', '==', this.userId)
-      )
-      .valueChanges({ idField: 'id' });
-  }
+  // getFavorites() {
+  //   return this.firestore
+  //     .collection<Favorite>('favorites', (ref) =>
+  //       ref
+  //         .where('playerId', '==', this.userId)
+  //         .where('exerciseId', '==', this.item.id)
+  //     )
+  //     .valueChanges({ idField: 'id' });
+  // }
 }

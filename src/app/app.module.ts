@@ -16,8 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ListComponent } from './components/list/list.component';
 import { MatCardModule } from '@angular/material/card';
 import { CardComponent } from './components/card/card.component';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { SignupComponent } from './components/auth/signup/signup.component';
@@ -29,9 +29,22 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { MaterialElevationDirective } from './directive/material-elevation.directive';
+
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, SearchComponent, ListComponent, CardComponent, SignupComponent, SigninComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    SearchComponent,
+    ListComponent,
+    CardComponent,
+    SignupComponent,
+    SigninComponent,
+    MaterialElevationDirective,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -51,7 +64,9 @@ import { MatMenuModule } from '@angular/material/menu';
     AngularFireDatabaseModule,
     MatIconModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],
