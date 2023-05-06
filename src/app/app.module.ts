@@ -18,9 +18,20 @@ import { MatCardModule } from '@angular/material/card';
 import { CardComponent } from './components/card/card.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire/compat';
+import { SignupComponent } from './components/auth/signup/signup.component';
+import { SigninComponent } from './components/auth/signin/signin.component';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, SearchComponent, ListComponent, CardComponent],
+  declarations: [AppComponent, HomeComponent, SearchComponent, ListComponent, CardComponent, SignupComponent, SigninComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -32,7 +43,15 @@ import {MatGridListModule} from '@angular/material/grid-list';
     HttpClientModule,
     MatCardModule,
     MatPaginatorModule,
-    MatGridListModule
+    MatGridListModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
+    MatIconModule,
+    MatButtonModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent],
