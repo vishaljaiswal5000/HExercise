@@ -1,27 +1,46 @@
-# Exercise
+# Exercise Angular Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.6.
+This web-based Angular application is a comprehensive tool for users to explore various exercises. Its interactive interface is specifically designed to enhance user experience, providing visual aids in the form of GIF images to help them target specific body parts. Additionally, the application provides valuable information about the muscles targeted during the exercise, allowing users to make informed decisions about their workout routine.
+With its intuitive design and informative features, this Angular application provides a one-stop solution for users looking to improve their fitness and overall well-being. Whether you're a seasoned fitness enthusiast or just starting your fitness journey, this application is an excellent resource to help you achieve your goals.
 
-## Development server
+It utilizes the third-party API provided by RapidAPI at https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb/ to fetch and display exercise-related data.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
+- User signup and signin using Firebase authentication with Google and Email/Password provider
+- User dashboard to view exercises.
+- User can add exercises in their favorite list.
 
-## Code scaffolding
+## Getting Started
+### Prerequisites
+- Node.js and npm installed on your machine
+- Angular CLI installed globally. You can install it using the following command:
+  ```
+  npm install -g @angular/cli
+  ```
+- RapidAPI Key. Signup and obtain a key at https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb/
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Installation
+1. Clone the repository
+2. Navigate to the project root directory
+3. Install dependencies by running the following command:
+    ```
+    npm install
+    ```
+4. Create a file named `rapidapi.key` at the root of the project directory and copy your RapidAPI key to it.
+5. Start the development server using the following command:
+    ```
+    ng serve
+    ```
+6. Open the application in your browser at http://localhost:4200.
 
-## Build
+### Build
+Run `ng build` to build the project. The build artifacts will be stored in the `public/` directory.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Deployment
+Run `firebase deploy` to deploy the project. It deploys all the files available in `public` directory to the firebase server.
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Usage
+- Signup and login to access the user dashboard.
+- Use the search feature to look up exercises and add to favorite them to your list.
+- Select body part and it will provide you detailed information about the exercises.
