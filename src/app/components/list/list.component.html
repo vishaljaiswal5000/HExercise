@@ -2,9 +2,10 @@
   <div class="list-panel">
     <mat-grid-list
       class="list-container"
-      cols="4"
+      [cols]="breakpoint"
       gutterSize="2"
       rowHeight="1:1"
+      (window:resize)="onResize($event)"
       *ngIf="data.length > 0"
     >
       <mat-grid-tile

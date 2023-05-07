@@ -21,14 +21,16 @@ export class ListComponent implements OnInit {
   pageSize = 8;
   favoriteList: string[] = [];
   favorites$!: Observable<Favorite[]>;
+  breakpoint = 4;
   constructor(
     private exerciseService: ExerciseService,
     public firestore: AngularFirestore,
     public authService: AuthService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.userId = this.authService.getUserData.uid;
+    this.breakpoint = window.innerWidth <= 800 ? 1 : 4;
 
     //TODO: To be uncommented
     // this.getFavoritesByUserId().subscribe((data) => {
@@ -36,8 +38,7 @@ export class ListComponent implements OnInit {
     // });
   }
 
-
-   //TODO: To be commented
+  //TODO: To be commented
   getBodyExercises(bodyPart: string) {
     const localData = localStorage.getItem('data');
     if (!localData)
@@ -51,14 +52,14 @@ export class ListComponent implements OnInit {
         this.data.sort(function (x, y) {
           return Number(y.isFavorite) - Number(x.isFavorite);
         });
-        localStorage.setItem('data', JSON.stringify(this.data))
+        localStorage.setItem('data', JSON.stringify(this.data));
       });
     else {
-      this.data = JSON.parse(localData)
+      this.data = JSON.parse(localData);
     }
   }
 
-   //TODO: To be uncommented
+  //TODO: To be uncommented
   // getBodyExercises(bodyPart: string) {
   //   this.exerciseService.getBodyPartExercises(bodyPart).subscribe((data) => {
   //     this.data = data;
@@ -79,5 +80,9 @@ export class ListComponent implements OnInit {
         ref.where('playerId', '==', this.userId)
       )
       .valueChanges();
+  }
+
+  onResize(event: any) {
+    this.breakpoint = event.target.innerWidth <= 800 ? 1 : 4;
   }
 }

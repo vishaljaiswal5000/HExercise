@@ -1,6 +1,10 @@
 <div class="wrapper">
   <div class="logo">
-    <img src="./../../../../assets/images/logo/logo-no-background.png" height="50px" width="250px">
+    <img
+      src="./../../../../assets/images/logo/logo-no-background.png"
+      height="50px"
+      width="250px"
+    />
   </div>
   <mat-card class="mat-elevation-z6">
     <mat-card-header class="center">
@@ -8,36 +12,70 @@
     </mat-card-header>
     <mat-card-content>
       <div class="authBlock">
-        <div class="formGroup">
-          <input
-            type="text"
-            class="formControl"
-            placeholder="Email-ID"
-            #userName
-            required
-          />
-        </div>
+        <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+          <mat-form-field class="input-field" appearance="outline">
+            <mat-label>Email-ID</mat-label>
+            <input
+              matInput
+              placeholder="abc@example.com"
+              formControlName="email"
+              required
+            />
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error
+              *ngIf="
+                signInForm.controls['email'].invalid &&
+                (signInForm.controls['email'].dirty ||
+                  signInForm.controls['email'].touched)
+              "
+            >
+              <span *ngIf="signInForm.controls['email'].hasError('required')"
+                >Email is required</span
+              >
+              <span *ngIf="signInForm.controls['email'].hasError('email')"
+                >Enter a valid email address</span
+              >
+            </mat-error>
+          </mat-form-field>
 
-        <div class="formGroup">
-          <input
-            type="password"
-            class="formControl"
-            placeholder="Password"
-            #userPassword
-            required
-          />
-        </div>
+          <mat-form-field class="input-field" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              placeholder=""
+              formControlName="password"
+              [type]="hide ? 'password' : 'text'"
+              required
+            />
+            <button mat-icon-button matSuffix (click)="hide = !hide">
+              <mat-icon matSuffix>{{
+                hide ? "visibility_off" : "visibility"
+              }}</mat-icon>
+            </button>
+            <mat-error
+              *ngIf="
+                signInForm.controls['password'].invalid &&
+                (signInForm.controls['password'].dirty ||
+                  signInForm.controls['password'].touched)
+              "
+            >
+              <span *ngIf="signInForm.controls['password'].hasError('required')"
+                >Password is required</span
+              >
+            </mat-error>
+          </mat-form-field>
 
-        <!-- Calling SignIn Api from AuthService -->
-        <div class="formGroup center">
-          <button
-            mat-raised-button
-            (click)="authService.SignIn(userName.value, userPassword.value)"
-          >
-            Log in
-          </button>
-        </div>
-
+          <!-- Calling SignIn Api from AuthService -->
+          <div class="formGroup center">
+            <button
+              mat-raised-button
+              [disabled]="signInForm.invalid"
+              type="submit"
+            >
+              Sign In
+            </button>
+          </div>
+        </form>
         <div class="formGroup">
           <span class="or"><span class="orInner">Or</span></span>
         </div>
@@ -55,13 +93,11 @@
 
         <div class="formGroup center cursor">
           <span
-            >Don't have an account?<span class="redirect" routerLink="/signup">
-              Sign Up</span
-            ></span
-          >
+            >Don't have an account?
+            <!-- <a mat-button-flat class="redirect" (click)="navigateTo('signup')">Sign Up</a> -->
+            <a mat-button-flat class="redirect" href="/signup">Sign Up</a>
+          </span>
         </div>
-
-
       </div>
     </mat-card-content>
     <mat-card-actions> </mat-card-actions>
@@ -69,5 +105,5 @@
 </div>
 
 <div class="modal-content">
-  <img src="./../../../../assets/images/signin.svg" >
+  <img src="./../../../../assets/images/signin.svg" />
 </div>
