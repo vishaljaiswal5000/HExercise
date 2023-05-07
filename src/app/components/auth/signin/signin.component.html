@@ -12,7 +12,7 @@
     </mat-card-header>
     <mat-card-content>
       <div class="authBlock">
-        <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="signInForm">
           <mat-form-field class="input-field" appearance="outline">
             <mat-label>Email-ID</mat-label>
             <input
@@ -44,12 +44,12 @@
               matInput
               placeholder=""
               formControlName="password"
-              [type]="hide ? 'password' : 'text'"
+              [type]="isHidden ? 'password' : 'text'"
               required
             />
-            <button mat-icon-button matSuffix (click)="hide = !hide">
+            <button mat-icon-button matSuffix (click)="isHidden = !isHidden">
               <mat-icon matSuffix>{{
-                hide ? "visibility_off" : "visibility"
+                isHidden ? "visibility_off" : "visibility"
               }}</mat-icon>
             </button>
             <mat-error
@@ -70,7 +70,7 @@
             <button
               mat-raised-button
               [disabled]="signInForm.invalid"
-              type="submit"
+              (click)="onSubmit()"
             >
               Sign In
             </button>
@@ -94,7 +94,6 @@
         <div class="formGroup center cursor">
           <span
             >Don't have an account?
-            <!-- <a mat-button-flat class="redirect" (click)="navigateTo('signup')">Sign Up</a> -->
             <a mat-button-flat class="redirect" href="/signup">Sign Up</a>
           </span>
         </div>

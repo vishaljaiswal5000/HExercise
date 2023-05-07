@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Constants } from '../constants/constant';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
-  private apiUrl = 'https://exercisedb.p.rapidapi.com/exercises';
-  private key = '8b9f4c35b5msh0acc82a7a84bd72p1caab1jsnc29334850d26';
-  // private key = '64540054d3mshd0d575529a3ee04p1dcd48jsn4a88be98b18e';
-  private host = 'exercisedb.p.rapidapi.com';
+  private apiUrl = Constants.apiUrl;
+  private key = Constants.key;
+  private host = Constants.host;
 
   options = {
     headers: new HttpHeaders({

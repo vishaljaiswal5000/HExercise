@@ -1,10 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
-import { environment } from 'src/environments/environment';
+import { Component,  OnInit,  } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
-import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -13,46 +8,32 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./signin.component.scss'],
 })
 export class SigninComponent implements OnInit {
-  // @ViewChild('username') userName!: ElementRef<HTMLInputElement>;
-  // @ViewChild('userpassword') userPassword!: ElementRef<HTMLInputElement>;
-
-  // get enableLogIn() {
-  //   //if (this.userName.)
-  //   return this.userName;
-  // }
-
-  inputPassword = '';
-  hide = true;
+  isHidden = true;
   signInForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     public authService: AuthService,
-    public router: Router
   ) {
     this.signInForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', Validators.required,Validators.minLength(6)],
     });
   }
   ngOnInit() {}
 
   get email() {
-    return this.signInForm.get('email');
+    return this.signInForm.get('email')?.value;
   }
 
   get password() {
-    return this.signInForm.get('password');
+    return this.signInForm.get('password')?.value;
   }
 
   onSubmit() {
     this.authService.SignIn(
-      this.signInForm.value.email,
-      this.signInForm.value.password
+      this.email,
+      this.password
     );
-  }
-
-  navigateTo(path: string) {
-    this.router.navigate([path]);
   }
 }

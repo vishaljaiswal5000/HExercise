@@ -7,16 +7,14 @@ import { AuthLoginGuard } from './services/guards/authLogin.guard';
 import { AuthGuard } from './services/guards/auth.guard';
 
 const routes: Routes = [
-   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  //{ path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
     path: 'dashboard',
     component: HomeComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'signin', component: SigninComponent,canActivate: [AuthLoginGuard] },
-  // { path: 'signup', component: SignupComponent,canActivate: [AuthLoginGuard] },
-  { path: 'signup', component: SignupComponent,canActivate: [AuthLoginGuard] },
+  { path: 'signin', component: SigninComponent, canActivate: [AuthLoginGuard] },
+  { path: 'signup', component: SignupComponent, canActivate: [AuthLoginGuard] },
   { path: '**', component: HomeComponent, canActivate: [AuthGuard] },
 ];
 

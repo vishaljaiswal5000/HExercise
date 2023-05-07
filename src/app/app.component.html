@@ -8,7 +8,6 @@
     </button>
   </mat-toolbar>
 
-
  <mat-menu #menu="matMenu">
     <button mat-menu-item disabled>
       <mat-icon>email</mat-icon>{{ (authService.getUserData && authService.getUserData.email)|| 'Tom Green'}}</button>
@@ -18,6 +17,5 @@
 
   <div class="container">
     <router-outlet></router-outlet>
-    <!-- <app-home></app-home> -->
   </div>
 </ng-container>

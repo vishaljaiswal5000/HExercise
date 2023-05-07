@@ -12,22 +12,28 @@
     </mat-card-header>
     <mat-card-content>
       <div class="authBlock">
-        <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="signUpForm">
           <mat-form-field class="input-field" appearance="outline">
             <mat-label>Display Name</mat-label>
-            <input matInput placeholder="Given name"  formControlName="displayName" required />
+            <input
+              matInput
+              placeholder="Given name"
+              formControlName="displayName"
+              required
+            />
             <mat-icon matSuffix>perm_identity</mat-icon>
             <mat-error
-            *ngIf="
-              signUpForm.controls['displayName'].invalid &&
-              (signUpForm.controls['displayName'].dirty ||
-                signUpForm.controls['displayName'].touched)
-            "
-          >
-            <span *ngIf="signUpForm.controls['displayName'].hasError('required')"
-              >Display Name is required</span
+              *ngIf="
+                signUpForm.controls['displayName'].invalid &&
+                (signUpForm.controls['displayName'].dirty ||
+                  signUpForm.controls['displayName'].touched)
+              "
             >
-          </mat-error>
+              <span
+                *ngIf="signUpForm.controls['displayName'].hasError('required')"
+                >Display Name is required</span
+              >
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field class="input-field" appearance="outline">
@@ -61,12 +67,12 @@
               matInput
               placeholder=""
               formControlName="password"
-              [type]="hide ? 'password' : 'text'"
+              [type]="isHidden ? 'password' : 'text'"
               required
             />
-            <button mat-icon-button matSuffix (click)="hide = !hide">
+            <button mat-icon-button matSuffix (click)="isHidden = !isHidden">
               <mat-icon matSuffix>{{
-                hide ? "visibility_off" : "visibility"
+                isHidden ? "visibility_off" : "visibility"
               }}</mat-icon>
             </button>
             <mat-error
@@ -86,7 +92,7 @@
             <button
               mat-raised-button
               [disabled]="signUpForm.invalid"
-              type="submit"
+              (click)="onSubmit()"
             >
               Sign Up
             </button>
@@ -111,7 +117,6 @@
       <div class="center cursor">
         <span
           >Already have an account?
-          <!-- <a mat-button-flat class="redirect" (click)="navigateTo('signin')">Sign In</a> -->
           <a mat-button-flat class="redirect" href="/signin">Sign In</a>
         </span>
       </div>

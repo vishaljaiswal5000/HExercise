@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable, map } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { Favorite } from 'src/app/model/favorite';
+import { Collection } from 'src/app/constants/enum';
+import { firstValueFrom } from 'rxjs'
 
 @Component({
   selector: 'app-card',
@@ -32,21 +33,19 @@ export class CardComponent implements OnInit {
   addFavorite(id: string) {
     const favorite: Favorite = {
       exerciseId: id,
-      playerId: this.authService.getUserData.uid,
+      userId: this.authService.getUserData.uid,
     };
-    this.firestore.collection('favorites').add(favorite);
+    this.firestore.collection(Collection.FAVORITES).add(favorite);
     this.item.isFavorite = true;
     this.fetchFavorite.emit();
   }
 
   removeFavorite(id: string) {
-    this.firestore
-      .collection<Favorite>('favorites', (ref) =>
-        ref.where('exerciseId', '==', id).where('playerId', '==', this.userId)
+    firstValueFrom(this.firestore
+      .collection<Favorite>(Collection.FAVORITES, (ref) =>
+        ref.where('exerciseId', '==', id).where('userId', '==', this.userId)
       )
-      .get()
-      .toPromise()
-      .then((querySnapshot) => {
+      .get()).then((querySnapshot) => {
         if (querySnapshot) {
           querySnapshot.forEach((doc) => {
             doc.ref.delete();
@@ -59,25 +58,4 @@ export class CardComponent implements OnInit {
         console.error('Error removing favorite: ', error);
       });
   }
-
-  // isFavorite(id: string) {
-  //   return this.favorites$.pipe(
-  //     map((favorites) =>
-  //       favorites.some((f) => {
-  //         console.log(f.exerciseId + '------>' + id);
-  //         return f.exerciseId === id;
-  //       })
-  //     )
-  //   );
-  // }
-
-  // getFavorites() {
-  //   return this.firestore
-  //     .collection<Favorite>('favorites', (ref) =>
-  //       ref
-  //         .where('playerId', '==', this.userId)
-  //         .where('exerciseId', '==', this.item.id)
-  //     )
-  //     .valueChanges({ idField: 'id' });
-  // }
 }

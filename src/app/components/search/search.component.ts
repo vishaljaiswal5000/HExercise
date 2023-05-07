@@ -18,10 +18,11 @@ export class SearchComponent implements OnInit {
   }
 
   getBodyParts() {
-    //TODO: To be uncommented
-    // this.bodyParts$ = this.exerciseService.getBodyPartList();
+    //TESTING TODO: To be uncommented
+    this.bodyParts$ = this.exerciseService.getBodyPartList();
 
-    this.bodyParts$ = of(['chest', 'neck']);
+    //TESTING TODO: To be commented
+    // this.bodyParts$ = of(['chest', 'neck']);
   }
 
   onBodyPartSelected() {

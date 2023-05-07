@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DataService } from './data.service';
-import { Urls } from './urls';
+import { Urls } from '../constants/enum';
+
 
 @Injectable({
   providedIn: 'root',

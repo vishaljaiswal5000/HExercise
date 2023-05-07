@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { initializeApp } from 'firebase/app';
-import { UserCredential, getAuth } from 'firebase/auth';
 import { AuthService } from 'src/app/services/auth.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-signup',
@@ -12,41 +9,34 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-  inputPassword = '';
-  hide = true;
+  isHidden = true;
   signUpForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     public authService: AuthService,
-    public router: Router
   ) {
     this.signUpForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', Validators.required,,Validators.minLength(6)],
       displayName: ['', Validators.required],
     });
   }
   ngOnInit() {}
 
   get email() {
-    return this.signUpForm.get('email');
+    return this.signUpForm.get('email')?.value;
   }
 
   get password() {
-    return this.signUpForm.get('password');
+    return this.signUpForm.get('password')?.value;
+  }
+
+  get displayName() {
+    return this.signUpForm.get('displayName')?.value;
   }
 
   onSubmit() {
-    // handle form submission
-    this.authService.SignUp(
-      this.signUpForm.controls['email'].value,
-      this.signUpForm.controls['password'].value,
-      this.signUpForm.controls['displayName'].value
-    );
-  }
-
-  navigateTo(path: string) {
-    this.router.navigate([path]);
+    this.authService.SignUp(this.email, this.password, this.displayName);
   }
 }

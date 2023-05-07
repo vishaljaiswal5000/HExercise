@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { User } from '../model/user';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AppRoutes, Collection } from '../constants/enum';
 
 @Injectable({
   providedIn: 'root',
@@ -48,12 +49,11 @@ export class AuthService {
         this.SetUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
-            this.router.navigate(['dashboard']);
+            this.router.navigate([AppRoutes.DASHBOARD]);
           }
         });
       })
       .catch((error) => {
-        // window.alert(error.message);
         this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
       });
   }
@@ -66,7 +66,7 @@ export class AuthService {
         this.SetUserData(result.user, displayName);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
-            this.router.navigate(['dashboard']);
+            this.router.navigate([AppRoutes.DASHBOARD]);
           }
         });
       })
@@ -87,7 +87,7 @@ export class AuthService {
       (res: any) => {
         this.afAuth.authState.subscribe((user) => {
           if (user) {
-            this.router.navigate(['dashboard']);
+            this.router.navigate([AppRoutes.DASHBOARD]);
           }
         });
       },
@@ -114,7 +114,7 @@ export class AuthService {
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   SetUserData(user: any, displayName?: string) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${user.uid}`
+      `${Collection.USER}/${user.uid}`
     );
     const userData: User = {
       uid: user.uid,
@@ -137,7 +137,7 @@ export class AuthService {
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['signin']);
+      this.router.navigate([AppRoutes.SIGNIN]);
     });
   }
 }
