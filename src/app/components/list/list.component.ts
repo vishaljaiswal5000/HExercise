@@ -31,47 +31,47 @@ export class ListComponent implements OnInit {
     this.userId = this.authService.getUserData.uid;
 
     //TODO: To be uncommented
-    this.getFavoritesByUserId().subscribe((data) => {
-      this.favoriteList = data.map((f) => f.exerciseId);
-    });
+    // this.getFavoritesByUserId().subscribe((data) => {
+    //   this.favoriteList = data.map((f) => f.exerciseId);
+    // });
   }
 
 
    //TODO: To be commented
-  // getBodyExercises(bodyPart: string) {
-  //   const localData = localStorage.getItem('data');
-  //   if (!localData)
-  //     this.exerciseService.getBodyPartExercises(bodyPart).subscribe((data) => {
-  //       this.data = data;
-  //       this.data.forEach((element) => {
-  //         element.isFavorite = false;
-  //         if (this.favoriteList.includes(element.id)) element.isFavorite = true;
-  //       });
+  getBodyExercises(bodyPart: string) {
+    const localData = localStorage.getItem('data');
+    if (!localData)
+      this.exerciseService.getBodyPartExercises(bodyPart).subscribe((data) => {
+        this.data = data;
+        this.data.forEach((element) => {
+          element.isFavorite = false;
+          if (this.favoriteList.includes(element.id)) element.isFavorite = true;
+        });
 
-  //       this.data.sort(function (x, y) {
-  //         return Number(y.isFavorite) - Number(x.isFavorite);
-  //       });
-  //       localStorage.setItem('data', JSON.stringify(this.data))
-  //     });
-  //   else {
-  //     this.data = JSON.parse(localData)
-  //   }
-  // }
+        this.data.sort(function (x, y) {
+          return Number(y.isFavorite) - Number(x.isFavorite);
+        });
+        localStorage.setItem('data', JSON.stringify(this.data))
+      });
+    else {
+      this.data = JSON.parse(localData)
+    }
+  }
 
    //TODO: To be uncommented
-  getBodyExercises(bodyPart: string) {
-    this.exerciseService.getBodyPartExercises(bodyPart).subscribe((data) => {
-      this.data = data;
-      this.data.forEach((element) => {
-        element.isFavorite = false;
-        if (this.favoriteList.includes(element.id)) element.isFavorite = true;
-      });
+  // getBodyExercises(bodyPart: string) {
+  //   this.exerciseService.getBodyPartExercises(bodyPart).subscribe((data) => {
+  //     this.data = data;
+  //     this.data.forEach((element) => {
+  //       element.isFavorite = false;
+  //       if (this.favoriteList.includes(element.id)) element.isFavorite = true;
+  //     });
 
-      this.data.sort(function (x, y) {
-        return Number(y.isFavorite) - Number(x.isFavorite);
-      });
-    });
-  }
+  //     this.data.sort(function (x, y) {
+  //       return Number(y.isFavorite) - Number(x.isFavorite);
+  //     });
+  //   });
+  // }
 
   getFavoritesByUserId() {
     return this.firestore

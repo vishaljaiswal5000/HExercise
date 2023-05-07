@@ -19,9 +19,9 @@ export class SearchComponent implements OnInit {
 
   getBodyParts() {
     //TODO: To be uncommented
-    this.bodyParts$ = this.exerciseService.getBodyPartList();
+    // this.bodyParts$ = this.exerciseService.getBodyPartList();
 
-    // this.bodyParts$ = of(['chest', 'neck']);
+    this.bodyParts$ = of(['chest', 'neck']);
   }
 
   onBodyPartSelected() {

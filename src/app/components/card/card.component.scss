@@ -1,12 +1,21 @@
 .card {
-  width: 370px;
-  height: 370px;
+  width: 360px;
+  height: 360px;
   // border: 1px solid gray;
-  // width: 400px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .title-group {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
 }
 
-.card-content{
+.card-content {
   display: flex;
   justify-content: center;
 }
-
