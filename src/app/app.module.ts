@@ -9,7 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { SearchComponent } from './components/search/search.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ExerciseService } from './services/exercise.service';
 import { DataService } from './services/data.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -33,6 +33,7 @@ import { MaterialElevationDirective } from './directive/material-elevation.direc
 
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatButtonModule,
     MatMenuModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatInputModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
