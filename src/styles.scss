@@ -176,7 +176,7 @@ label {
   height: calc(100vh - 48px);
   padding-top: 0.5rem;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 @supports ((position: -webkit-sticky) or (position: sticky)) {

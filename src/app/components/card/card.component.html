@@ -1,8 +1,8 @@
-<mat-card class="card" appMaterialElevation>
+<!-- <mat-card class="card" appMaterialElevation>
   <mat-card-header class="header">
     <mat-card-title class="card-title">
       <div style="display: flex">
-        <span>{{ item.name }}</span>
+        <span>{{ item.name | titlecase }}</span>
         <span class="fill"></span>
         <mat-icon
           (click)="toggleFavorite()"
@@ -12,13 +12,31 @@
       </div>
     </mat-card-title>
     <mat-card-subtitle>
-      Required Equipments: {{ item.equipment }}</mat-card-subtitle
+      Required Equipments: {{ item.equipment | titlecase }}</mat-card-subtitle
     >
-    <mat-card-subtitle>Target: {{ item.target }}</mat-card-subtitle>
+    <mat-card-subtitle>Target: {{ item.target | titlecase }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content class="card-content">
     <img width="150" height="150" [src]="item.gifUrl" alt="" />
     <figcaption>{{ item.description }}</figcaption>
   </mat-card-content>
   <mat-card-actions> </mat-card-actions>
+</mat-card> -->
+
+
+<mat-card class="card" appMaterialElevation>
+  <mat-card-header>
+    <mat-card-title>
+      {{ item.name | titlecase }}
+    </mat-card-title>
+    <mat-icon (click)="toggleFavorite()" [style.color]="item.isFavorite ? 'red' : 'gray'">favorite</mat-icon>
+    <mat-card-subtitle>{{item.bodyPart | titlecase}} Excercise</mat-card-subtitle>
+
+  </mat-card-header>
+  <img mat-card-image height="220" width="200px" [src]="item.gifUrl" alt="" />
+  <mat-card-content>
+    <b>Required Equipments:</b> {{ item.equipment| titlecase }} <br />
+    <b>Target:</b> {{ item.target | titlecase }}
+  </mat-card-content>
+
 </mat-card>

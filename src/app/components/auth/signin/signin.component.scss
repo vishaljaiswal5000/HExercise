@@ -5,10 +5,27 @@ mat-card {
 .wrapper {
   width: 500px;
   height: 400px;
-  top: 50%;
+  top: 40%;
   left: 50%;
   position: absolute;
   margin-top: -200px;
   margin-left: -250px;
+}
+
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 70px;
+}
+
+.modal-content {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: right;
+  align-items: end;
 }
 

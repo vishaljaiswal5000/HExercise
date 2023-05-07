@@ -32,7 +32,7 @@ export class CardComponent implements OnInit {
   addFavorite(id: string) {
     const favorite: Favorite = {
       exerciseId: id,
-      playerId: this.authService.getUserData().uid,
+      playerId: this.authService.getUserData.uid,
     };
     this.firestore.collection('favorites').add(favorite);
     this.item.isFavorite = true;

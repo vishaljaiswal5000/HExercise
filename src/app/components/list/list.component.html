@@ -1,29 +1,38 @@
-<mat-grid-list
-  class="list-container"
-  cols="4"
-  gutterSize="2"
-  rowHeight="1:1"
-  *ngIf="data.length > 0"
->
-  <mat-grid-tile
-    *ngFor="
-      let item of data
-        | slice : (page - 1) * pageSize : (page - 1) * pageSize + pageSize
-    "
-  >
-    <app-card [item]="item" (fetchFavorite)="getFavoritesByUserId()"></app-card>
-  </mat-grid-tile>
-</mat-grid-list>
-<mat-paginator
-  *ngIf="data.length > 0"
-  [pageSizeOptions]="[4, 8, 16]"
-  [pageSize]="pageSize"
-  [length]="data.length"
-  (page)="page = $event.pageIndex + 1; pageSize = $event.pageSize"
-  showFirstLastButtons
->
-</mat-paginator>
+<div class="list-container">
+  <div class="list-panel">
+    <mat-grid-list
+      class="list-container"
+      cols="4"
+      gutterSize="2"
+      rowHeight="1:1"
+      *ngIf="data.length > 0"
+    >
+      <mat-grid-tile
+        *ngFor="
+          let item of data
+            | slice : (page - 1) * pageSize : (page - 1) * pageSize + pageSize
+        "
+      >
+        <app-card
+          [item]="item"
+          (fetchFavorite)="getFavoritesByUserId()"
+        ></app-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <div class="list-paginator">
+    <mat-paginator
+      *ngIf="data.length > 0"
+      [pageSizeOptions]="[4, 8, 16]"
+      [pageSize]="pageSize"
+      [length]="data.length"
+      (page)="page = $event.pageIndex + 1; pageSize = $event.pageSize"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </div>
+</div>
 
-<h1 *ngIf="data.length == 0" class="headline-5 center">
-  No any exercise available.
-</h1>
+<div *ngIf="data.length == 0" class="modal-content">
+  <img src="./../../../../assets/images/no-data.svg" />
+</div>

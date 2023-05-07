@@ -10,7 +10,7 @@ import { Observable, of } from 'rxjs';
 export class SearchComponent implements OnInit {
   @Output() bodyPartSelected = new EventEmitter<string>();
   public bodyParts$: Observable<string[]> = of([]);
-  public selectedBodyPart:string ="";
+  public selectedBodyPart: string = '';
   constructor(public exerciseService: ExerciseService) {}
 
   ngOnInit(): void {
@@ -18,10 +18,13 @@ export class SearchComponent implements OnInit {
   }
 
   getBodyParts() {
+    //TODO: To be uncommented
     this.bodyParts$ = this.exerciseService.getBodyPartList();
+
+    // this.bodyParts$ = of(['chest', 'neck']);
   }
 
-  onBodyPartSelected(){
+  onBodyPartSelected() {
     this.bodyPartSelected.emit(this.selectedBodyPart);
   }
 }

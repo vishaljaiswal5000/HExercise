@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
@@ -12,8 +12,15 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./signin.component.scss'],
 })
 export class SigninComponent implements OnInit {
-  ngOnInit() {}
+  @ViewChild('username') userName!: ElementRef<HTMLInputElement>;
+  @ViewChild('userpassword') userPassword!: ElementRef<HTMLInputElement>;
 
   constructor(public authService: AuthService, public router: Router) {}
 
+  ngOnInit() {}
+
+  get enableLogIn() {
+    //if (this.userName.)
+    return this.userName;
+  }
 }

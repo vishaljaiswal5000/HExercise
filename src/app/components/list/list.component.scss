@@ -1,4 +1,23 @@
 .list-container {
-  max-height: calc(80vh - 155px); // or height:calc(100vh - 155px); depending on your need  change
+  //max-height: calc(90vh - 40px); // or height:calc(100vh - 155px); depending on your need  change
   overflow: auto;
+
+  .list-panel {
+    max-height: calc(84vh - 40px);
+  }
+
+  .list-paginator {
+    position: absolute;
+    bottom: 0;
+    align-items: center;
+  }
 }
+
+.modal-content {
+  width: 99vw;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
