@@ -1,88 +1,12 @@
-mat-card {
-  width: 500px;
-}
-
-.wrapper {
-  width: 500px;
-  height: 400px;
-  top: 40%;
-  left: 50%;
-  position: absolute;
-  margin-top: -200px;
-  margin-left: -250px;
-}
-
-.logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 500px;
-  height: 70px;
-}
+$mobile-breakpoint: 600px;
 
 .modal-content {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: right;
-  align-items: end;
+  @media (min-width: #{$mobile-breakpoint}) {
+    justify-content: right;
+  }
 }
+
 
 .input-field {
   display: unset;
 }
-
-// $mobile-breakpoint: 600px;
-
-// .mat-card {
-//   width: 100%;
-
-//   @media (min-width: #{$mobile-breakpoint}) {
-//     max-width: 500px;
-//   }
-// }
-
-// .wrapper {
-//   width: 100%;
-//   height: 100%;
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-
-//   @media (min-width: #{$mobile-breakpoint}) {
-//     width: auto;
-//     height: auto;
-//     max-width: 500px;
-//     top: 40%;
-//   }
-// }
-
-// .logo {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   height: 70px;
-
-//   @media (min-width: #{$mobile-breakpoint}) {
-//     width: 100%;
-
-//   }
-// }
-
-// .modal-content {
-//   width: 100%;
-//   height: 100%;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-
-//   @media (min-width: #{$mobile-breakpoint}) {
-//     justify-content: right;
-//     align-items: end;
-//   }
-// }
-
-// .input-field {
-//   display: unset;
-// }

@@ -1,5 +1,6 @@
+@import "./../../../variables.scss";
+
 .list-container {
-  //max-height: calc(90vh - 40px); // or height:calc(100vh - 155px); depending on your need  change
   overflow: auto;
 
   .list-panel {
@@ -13,18 +14,30 @@
     display: flex;
     width: 100%;
     justify-content: flex-end;
-    background-color: #ebe9e9;
+    background-color: $gray-color;
     mat-paginator {
-      // color: #fff;
-      background-color: #ebe9e9 !important;
+      background-color: $gray-color !important;
     }
   }
 }
 
+$mobile-breakpoint: 600px;
+
 .modal-content {
-  width: 99vw;
-  height: 80vh;
+  .modal-image {
+    width: 250px;
+    height: 250px;
+  }
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (min-width: #{$mobile-breakpoint}) {
+    width: 99vw;
+    height: 80vh;
+    .modal-image {
+      width: unset;
+      height: unset;
+    }
+  }
 }
